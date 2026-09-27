@@ -1,0 +1,22 @@
+# Banco de dados e dados reais de clientes (LGPD / Sigilo)
+pedidos.db
+*.db
+*.sqlite3
+
+# Arquivos XML reais de NF-e processados (Contêm CPF, Nomes e Endereços)
+xml_entrada/processados/
+*.xml
+
+# Pastas de build, binários e distribuição
+dist/
+build/
+*.exe
+
+# Ambientes virtuais e cache
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Atalhos locais do Windows
+*.lnk
