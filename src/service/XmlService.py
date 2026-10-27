@@ -1,4 +1,4 @@
-import os
+﻿import os
 import sys
 import shutil
 import time
@@ -8,7 +8,9 @@ from typing import Callable, Optional, List, Dict, Any
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler, FileCreatedEvent, FileModifiedEvent
 
-from database import inserir_pedido, DEFAULT_DB_PATH, get_base_dir
+import sys, os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from dao.PedidoDAO import inserir_pedido, DEFAULT_DB_PATH, get_base_dir
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("Watcher")
@@ -243,3 +245,4 @@ if __name__ == "__main__":
             time.sleep(1)
     except KeyboardInterrupt:
         watcher.stop()
+

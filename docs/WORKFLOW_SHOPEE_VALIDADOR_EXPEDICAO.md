@@ -7,13 +7,13 @@
 
 ## 📍 Localização dos Projetos e Arquivos Chave
 
-- **Pasta Raiz do Projeto**: `C:\Users\enrik\OneDrive\Área de Trabalho\TesteShopee`
-- **Executável Final (`.exe`)**: `C:\Users\enrik\OneDrive\Área de Trabalho\TesteShopee\dist\ValidadorExpedicao.exe`
-- **Atalho na Área de Trabalho**: `C:\Users\enrik\OneDrive\Área de Trabalho\Validador de Expedição.lnk`
-- **Pasta de Entrada de XMLs**: `C:\Users\enrik\OneDrive\Área de Trabalho\TesteShopee\xml_entrada`
-- **Pasta de XMLs Processados**: `C:\Users\enrik\OneDrive\Área de Trabalho\TesteShopee\xml_entrada\processados`
-- **Banco de Dados SQLite**: `C:\Users\enrik\OneDrive\Área de Trabalho\TesteShopee\pedidos.db`
-- **Documentação Local**: `C:\Users\enrik\OneDrive\Área de Trabalho\TesteShopee\README.md`
+- **Pasta Raiz do Projeto**: `C:\Users\enrik\Desktop\TesteShopee`
+- **Executável Final (`.exe`)**: `C:\Users\enrik\Desktop\TesteShopee\dist\ValidadorExpedicao.exe`
+- **Atalho na Área de Trabalho**: `C:\Users\enrik\Desktop\Validador de Expedição.lnk`
+- **Pasta de Entrada de XMLs**: `C:\Users\enrik\Desktop\TesteShopee\xml_entrada`
+- **Pasta de XMLs Processados**: `C:\Users\enrik\Desktop\TesteShopee\xml_entrada\processados`
+- **Banco de Dados SQLite**: `C:\Users\enrik\Desktop\TesteShopee\pedidos.db`
+- **Documentação Local**: `C:\Users\enrik\Desktop\TesteShopee\README.md`
 
 ---
 
@@ -68,7 +68,7 @@ Todas as funcionalidades solicitadas para a **Versão 2.0** foram desenvolvidas,
 
 1. **Para Rodar o Código em Desenvolvimento**:
    ```powershell
-   cd "C:\Users\enrik\OneDrive\Área de Trabalho\TesteShopee"
+   cd "C:\Users\enrik\Desktop\TesteShopee"
    .\venv\Scripts\python.exe app.py
    ```
 
@@ -79,7 +79,7 @@ Todas as funcionalidades solicitadas para a **Versão 2.0** foram desenvolvidas,
 
 3. **Para Recompilar o Executável `.exe`**:
    ```powershell
-   cd "C:\Users\enrik\OneDrive\Área de Trabalho\TesteShopee"
+   cd "C:\Users\enrik\Desktop\TesteShopee"
    .\venv\Scripts\python.exe -m PyInstaller --noconfirm --onefile --windowed --name "ValidadorExpedicao" app.py
    Remove-Item -Recurse -Force -ErrorAction SilentlyContinue build, ValidadorExpedicao.spec
    ```

@@ -1,4 +1,4 @@
-import os
+﻿import os
 import sys
 import sqlite3
 from datetime import datetime
@@ -16,7 +16,7 @@ def get_base_dir() -> str:
         if os.path.basename(exe_dir).lower() == "dist":
             return os.path.dirname(exe_dir)
         return exe_dir
-    return os.path.dirname(os.path.abspath(__file__))
+    return os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 
 
 BASE_DIR = get_base_dir()
@@ -555,3 +555,4 @@ def exportar_lote_csv(lote_id: int, caminho_destino: str, db_path: str = DEFAULT
             ])
 
     return True
+

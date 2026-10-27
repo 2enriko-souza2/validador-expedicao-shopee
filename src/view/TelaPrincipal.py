@@ -1,4 +1,4 @@
-import os
+﻿import os
 import sys
 import time
 import threading
@@ -7,8 +7,10 @@ import xml.etree.ElementTree as ET
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 
-import database
-import watcher
+import sys, os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from dao import PedidoDAO as database
+from service import XmlService as watcher
 
 
 def tocar_som(tipo: str):
@@ -215,7 +217,7 @@ class ValidadorExpedicaoApp(tk.Tk):
 
         self.btn_auditoria = ttk.Button(
             btn_frame,
-            text="📜 Auditoria & Relatórios",
+            text="📜 Auditoria",
             style="Primary.TButton",
             command=self.abrir_janela_auditoria
         )

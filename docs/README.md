@@ -21,23 +21,24 @@ Cada Nota Fiscal passa por 3 estágios visuais com preservação contínua na te
 | Status | Cor / Indicador | Estágio do Pedido | Ação de Bipagem |
 |---|---|---|---|
 | **Não Bipado** | 🔴 **Vermelho** | XML importado / DANFE emitido | Aguardando 1º Bip de Separação |
-| **Em Separação** | 🟡 **Amarelo** | DANFE bipado a 1ª vez | Pedido em separação no estoque |
+| **Em Separação** | 🟡 **Amarelo** | DANFE bipado a 1ª vez | Pedido em separação no estoque (Cooldown de 300s p/ 2º bip) |
 | **Pronto para Coleta** | 🟢 **Verde** | DANFE bipado a 2ª vez | Pedido conferido, separado e pronto p/ despacho |
 
-*Alerta Sonoro:* Bips curtos e positivos para transições corretas; sirene/alerta contínuo em caso de bip duplicado ou código não encontrado.
+*Alerta Sonoro:* Bips curtos e positivos para transições corretas; sirene/alerta contínuo em caso de bip duplicado, cooldown ou código não encontrado.
 
 ---
 
-## 📁 Estrutura de Arquivos e Funções
+## 📁 Arquitetura em Camadas (Padrão MVC / DAO)
 
-| Arquivo | Para que serve? | Como foi usado? |
+| Arquivo / Pacote | Para que serve? | Como foi usado? |
 | :--- | :--- | :--- |
-| [`app.py`](./app.py) | **Interface Gráfica do Operador (GUI)** | Construída em Tkinter/TTK com tema escuro e visual industrial; gerencia a lista em tempo real de pedidos, captura eventos do leitor de código de barras e aciona feedback sonoro. |
-| [`database.py`](./database.py) | **Camada de Dados & Persistência (SQLite)** | Controla a conexão com o banco de dados, cria automaticamente os esquemas de tabelas, gerencia transações com tratamento de concorrência e atualiza timestamps de separação. |
-| [`watcher.py`](./watcher.py) | **Observador e Leitor de Arquivos XML** | Monitora a pasta `xml_entrada/` em segundo plano. Assim que o Bling salva uma nova NF-e, o watcher extrai a chave de acesso, destinatário, itens e insere no banco. |
-| [`server.py`](./server.py) | **Servidor de Sincronização Local (FastAPI + WebSockets)** | Sincroniza o estado das notas entre múltiplas estações de conferência em rede local com latência imperceptível (< 50ms). |
-| [`requirements.txt`](./requirements.txt) | **Dependências do Sistema** | Dependências para backend e GUI (`fastapi`, `uvicorn`, `watchdog`, `pygame`). |
-| [`WORKFLOW_SHOPEE_VALIDADOR_EXPEDICAO.md`](./WORKFLOW_SHOPEE_VALIDADOR_EXPEDICAO.md) | **Procedimento Operacional Padrão (POP)** | Guia operacional completo para treinamento de colaboradores na bancada de expedição. |
+| [`src/Main.py`](../src/Main.py) | **Ponto de Entrada (`main`)** | Inicializa os pacotes da aplicação e abre a janela principal do sistema. |
+| [`src/view/TelaPrincipal.py`](../src/view/TelaPrincipal.py) | **Interface Gráfica do Operador (View)** | Construída em Tkinter/TTK com tema escuro industrial; gerencia a lista em tempo real de pedidos, captura eventos do leitor de código de barras e aciona feedback sonoro. |
+| [`src/dao/PedidoDAO.py`](../src/dao/PedidoDAO.py) | **Camada de Dados & Persistência (DAO / SQLite)** | Controla a conexão com o banco de dados, cria automaticamente os esquemas de tabelas, valida o cooldown de 300s entre bips e exporta relatórios CSV. |
+| [`src/service/XmlService.py`](../src/service/XmlService.py) | **Serviço Observador e Leitor de XML (Service)** | Monitora a pasta `xml_entrada/`. Extrai a chave de acesso de 44 dígitos e número da NF-e e insere no banco. |
+| [`src/controller/RedeController.py`](../src/controller/RedeController.py) | **Controlador de Sincronização em Rede (Controller)** | Servidor FastAPI + WebSockets que sincroniza o estado das notas entre múltiplas estações de conferência em rede local (< 50ms). |
+| [`requirements.txt`](../requirements.txt) | **Dependências do Sistema** | Dependências para backend e GUI (`fastapi`, `uvicorn`, `watchdog`, `websockets`). |
+| [`docs/WORKFLOW_SHOPEE_VALIDADOR_EXPEDICAO.md`](./WORKFLOW_SHOPEE_VALIDADOR_EXPEDICAO.md) | **Procedimento Operacional Padrão (POP)** | Guia operacional completo para treinamento e manutenção. |
 
 ---
 
@@ -55,5 +56,5 @@ Por diretrizes estritas de privacidade e proteção de dados (LGPD):
 pip install -r requirements.txt
 
 # 2. Iniciar o validador de expedição
-python app.py
+python src/Main.py
 ```
